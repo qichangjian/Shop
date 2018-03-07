@@ -137,35 +137,36 @@ public class AdminController {
 		return mv;
 	}
 	//模糊查询
-		@RequestMapping("/updateAdminLike")
-		public ModelAndView updateAdminLike(HttpServletRequest request,HttpServletResponse response) {
-			ModelAndView mv = new ModelAndView();
-			int pageNumber = 1;//初始化是第一页
-			String pageNumberX = request.getParameter("pageNumberX");
-			String adminNameLike = request.getParameter("adminNameLike");//得到的模糊查询条件
-			System.out.println("模糊查询条件："+adminNameLike);
-			if(pageNumberX != null) {
-				pageNumber = Integer.parseInt(pageNumberX);
-			}
-			log.info("now pagenumber is:"+pageNumber);
-			int adminPageAll =  pageService.adminAllPage(pageOn,adminNameLike);//查询没页1条数据一共多少页面
-			System.out.println("模糊查询返回的adminPageAll："+adminPageAll);
-			if(pageNumber > adminPageAll) {
-				pageNumber = adminPageAll;
-			}
-			if(pageNumber < 1) {
-				pageNumber = 1;
-			}
-			log.info("模糊查询how much page:"+adminPageAll);
-			List<Admin> list = adminService.selectPageAdmin(pageOn, pageNumber,adminNameLike);//查询相关的那一页
-			log.info("模糊查询list size:"+list.get(0).getAid());
-			mv.setViewName("shopWMS/view/updateAdmin");
-			mv.addObject("adminNameLike",adminNameLike);
-			mv.addObject("pageAll",adminPageAll);
-			mv.addObject("pageNumberX",pageNumber);//当前是第几页
-			mv.addObject("AdminsList",list);//查询到的结果集
-			return mv;
+	@RequestMapping("/updateAdminLike")
+	public ModelAndView updateAdminLike(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		int pageNumber = 1;//初始化是第一页
+		String pageNumberX = request.getParameter("pageNumberX");
+		String adminNameLike = request.getParameter("adminNameLike");//得到的模糊查询条件
+		System.out.println("模糊查询条件："+adminNameLike);
+		if(pageNumberX != null) {
+			pageNumber = Integer.parseInt(pageNumberX);
 		}
+		log.info("now pagenumber is:"+pageNumber);
+		int adminPageAll =  pageService.adminAllPage(pageOn,adminNameLike);//查询没页1条数据一共多少页面
+		System.out.println("模糊查询返回的adminPageAll："+adminPageAll);
+		if(pageNumber > adminPageAll) {
+			pageNumber = adminPageAll;
+		}
+		if(pageNumber < 1) {
+			pageNumber = 1;
+		}
+		log.info("模糊查询how much page:"+adminPageAll);
+		List<Admin> list = adminService.selectPageAdmin(pageOn, pageNumber,adminNameLike);//查询相关的那一页
+		log.info("模糊查询list size:"+list.get(0).getAid());
+		mv.setViewName("shopWMS/view/updateAdmin");
+		mv.addObject("adminNameLike",adminNameLike);
+		mv.addObject("pageAll",adminPageAll);
+		mv.addObject("pageNumberX",pageNumber);//当前是第几页
+		mv.addObject("AdminsList",list);//查询到的结果集
+		return mv;
+	}
+	
 	@RequestMapping("/addAdmin")
 	public ModelAndView addAdmin(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();

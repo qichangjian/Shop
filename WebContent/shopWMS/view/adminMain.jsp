@@ -97,14 +97,10 @@
 				        <li><a href="${plists.purl }">${plists.pname}</a></li>				      				          
 				     </c:forEach>			
 					</ul>
-					<h3 class="am-icon-cart-plus"><em></em> <a href="#"> 商品管理</a></h3>
+					<h3 class="am-icon-cart-plus"><em></em> <a href="#"> 用户管理</a></h3>
 					<ul>
-						<li><a href="findGategories">商品类别管理</a></li>
-						<li><a href="findCommodity">商品管理</a></li>
-						<li>订单打印</li>
-						<li>添加订单</li>
-						<li>发货单列表</li>
-						<li>换货单列表</li>
+						<li><a href="findUserList">查看用户信息</a></li>
+						<li><a href="updateUser">修改用户信息</a></li>
 					</ul>
 					<h3 class="am-icon-users"><em></em> <a href="#">会员管理</a></h3>
 					<ul>

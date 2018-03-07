@@ -10,4 +10,8 @@ public interface PageService {
 	
 	int permissionAllPage(int pageOn);
 	int permissionAllPage(int pageOn,String permissionNameLike);
+	
+	int userAllPage(int pageOn);
+	int userAllPage(int pageOn,String userNameLike);
+	
 }

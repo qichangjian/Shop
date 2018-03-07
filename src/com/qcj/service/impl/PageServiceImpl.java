@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.qcj.dao.AdminDao;
 import com.qcj.dao.PermissionDao;
 import com.qcj.dao.RoleDao;
+import com.qcj.dao.UserDao;
 import com.qcj.service.PageService;
 @Service("pageService")
 public class PageServiceImpl implements PageService{
@@ -16,6 +17,8 @@ public class PageServiceImpl implements PageService{
 	RoleDao roleDao;
 	@Resource
 	PermissionDao permissionDao;
+	@Resource
+	UserDao userDao;
 	
 	
 	@Override
@@ -105,6 +108,40 @@ public class PageServiceImpl implements PageService{
 		}else {
 			pageall = rowall / pageOn +1;
 		}
+		return pageall;
+	}
+	
+	@Override
+	public int userAllPage(int pageOn1) {
+		int pageOn=1;//每页多少条数据
+		pageOn = pageOn1;
+		System.out.println("pageServiceimpl 中方法接受的的page页面pageon is:"+pageOn);
+		int rowall=userDao.allCountNum();
+		System.out.println("pageServiceimpl allCountNum is:"+rowall);
+		int pageall = 0;
+		if (rowall % pageOn == 0) {
+			pageall = rowall / pageOn ;
+		} else {
+			pageall = rowall / pageOn + 1;
+		}
+		System.out.println("返回的pageall is :"+pageall);
+		return pageall;
+	}
+	@Override
+	public int userAllPage(int pageOn1, String userNameLike) {
+		System.out.println("pageservice中模糊查询传入的条件："+userNameLike);
+		int pageOn=1;//每页多少条数据
+		pageOn = pageOn1;
+		System.out.println("pageServiceimpl 中方法接受的的page页面pageon is:"+pageOn);
+		int rowall=userDao.allCountNum(userNameLike);
+		System.out.println("pageServiceimpl allCountNum is:"+rowall);
+		int pageall = 0;
+		if (rowall % pageOn == 0) {
+			pageall = rowall / pageOn ;
+		} else {
+			pageall = rowall / pageOn + 1;
+		}
+		System.out.println("模糊查询返回的pageall is :"+pageall);
 		return pageall;
 	}
 	
