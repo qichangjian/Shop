@@ -213,7 +213,7 @@
 							<div class="am-dropdown" data-am-dropdown>
 								<!--<button class="am-btn am-btn-success am-dropdown-toggle">Dropdown <span class="am-icon-caret-down"></span></button>-->
 								<button type="button"
-									class="am-btn am-btn-danger am-round am-btn-xs am-icon-plus am-dropdown-toggle">
+									class="am-btn am-btn-success am-round am-btn-xs am-icon-plus am-dropdown-toggle">
 									添加管理员</button>
 								<div class="am-dropdown-content am-kai" style="width: 400px;">
 									<h2>添加管理员</h2>

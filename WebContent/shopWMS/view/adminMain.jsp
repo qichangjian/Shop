@@ -102,13 +102,10 @@
 						<li><a href="findUserList">查看用户信息</a></li>
 						<li><a href="updateUser">修改用户信息</a></li>
 					</ul>
-					<h3 class="am-icon-users"><em></em> <a href="#">会员管理</a></h3>
+					<h3 class="am-icon-users"><em></em> <a href="#">商品管理</a></h3>
 					<ul>
-						<li>会员列表 </li>
-						<li>未激活会员</li>
-						<li>团队系谱图</li>
-						<li>会员推荐图</li>
-						<li>推荐列表</li>
+						<li><a href="findGategoriesList">查看商品分类</a> </li>
+						<li><a href="updateGategories">操作商品分类</a></li>
 					</ul>
 					<h3 class="am-icon-volume-up"><em></em> <a href="#">信息通知</a></h3>
 					<ul>

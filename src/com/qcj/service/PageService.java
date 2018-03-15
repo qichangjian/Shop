@@ -14,4 +14,8 @@ public interface PageService {
 	int userAllPage(int pageOn);
 	int userAllPage(int pageOn,String userNameLike);
 	
+	int gategoriesAllPage (int pageOn);
+	int gategoriesAllPage (int pageOn,String gategoriesNameLike);
+	
+	int commodityPageAll (int pageOn,String commodityNameLike,int gategoriesId);
 }
