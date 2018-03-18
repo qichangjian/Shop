@@ -59,4 +59,11 @@ public class CommodityDaoImpl implements CommodityDao {
 		int result = jdbcTemplate.update(sql,new Object[] {commodityIsShelves,commodityId});
 		return result;
 	}
+
+	@Override
+	public int deleteCommodity(int commodityId) {
+		String sql = "delete t_commodity where commodityId = ?";
+		int result = jdbcTemplate.update(sql,new Object[] {commodityId},new int[] {java.sql.Types.INTEGER});
+		return result;
+	}
 }

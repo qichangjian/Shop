@@ -32,7 +32,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter   {
         registry.addResourceHandler("/shopWMS/view/**").addResourceLocations("/shopWMS/view");
         registry.addResourceHandler("/shopWMS/rev-slider/**").addResourceLocations("/shopWMS/rev-slider/");
         registry.addResourceHandler("/shopWMS/*.html").addResourceLocations("/shopWMS/view/");   
-        
+        registry.addResourceHandler("/file/**").addResourceLocations("/file/"); 
     }
 
 	@Bean		//声明视图解析器，在返回逻辑视图名后拼装物理视图名
@@ -53,8 +53,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter   {
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(10485760);
-        
+        multipartResolver.setMaxUploadSize(10485760);   
         System.out.println("init resolver...multipart解析器dddd-------------");
         return multipartResolver;
     }

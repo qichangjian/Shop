@@ -20,4 +20,19 @@ public class CommoditypictureServiceImpl implements CommoditypictureService {
 	public List<Commoditypicture> selectCommoditypicture(int commodityId) {
 		return commoditypictureDao.selectCommoditypicture(commodityId);
 	}
+
+	@Override
+	public int addCommoditypicture(Commoditypicture commoditypicture) {
+		return commoditypictureDao.addCommoditypicture(commoditypicture);
+	}
+
+	@Override
+	public int deleteCommoditypicture(int cpId) {
+		return commoditypictureDao.deleteCommoditypicture(cpId);
+	}
+
+	@Override
+	public int deleteCommoditypictures(int commodityId) {
+		return commoditypictureDao.deleteCommoditypictures(commodityId);
+	}
 }

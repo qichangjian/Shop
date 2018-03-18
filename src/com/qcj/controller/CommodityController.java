@@ -15,6 +15,7 @@ import com.qcj.entity.Admin;
 import com.qcj.entity.Commodity;
 import com.qcj.service.AdminService;
 import com.qcj.service.CommodityService;
+import com.qcj.service.CommoditypictureService;
 import com.qcj.service.PageService;
 
 @Controller
@@ -24,6 +25,8 @@ public class CommodityController {
 	@Resource
 	CommodityService commodityService;
 	
+	@Resource
+	CommoditypictureService commoditypictureService;
 	
 	@Resource
 	PageService pageService;
@@ -164,5 +167,31 @@ public class CommodityController {
 		}
 	}
 	
+	
+	@RequestMapping("/deleteCommodity")
+	public ModelAndView deleteCommodity(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		String commodityId1 = request.getParameter("commodityId");
+		int commodityId = Integer.parseInt(commodityId1);
+		if(commoditypictureService.deleteCommoditypictures(commodityId) != 0){
+			System.out.println("商品所有图片删除成功");
+			if(commodityService.deleteCommodity(commodityId) != 0) {
+				mv.setViewName("shopWMS/view/commoditypictureUpdate");
+				return mv;
+			}else {
+				String deleteCommoditypictureErr = "操作失败";
+				mv.addObject("deleteCommoditypictureErr",deleteCommoditypictureErr);
+				mv.setViewName("shopWMS/view/errorPage");
+				return mv;
+			}
+		}else {
+			String deleteCommodityErr = "操作失败";
+			mv.addObject("deleteCommodityErr",deleteCommodityErr);
+			mv.setViewName("shopWMS/view/errorPage");
+			return mv;
+		}
+		
+		
+	}
 
 }

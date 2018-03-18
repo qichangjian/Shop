@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -195,13 +196,48 @@ public class GategoriesController {
 	 * 图片上传测试例子
 	 * @param request
 	 * @param response
+	 * @throws IOException 
 	 */
 	@RequestMapping("/upPicture")
-	public void upPicture(HttpServletRequest request,HttpServletResponse response) {
+	public void upPicture(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());   
 		/*if (multipartResolver.isMultipart(request)) {    
 	           System.out.println("ss");  
 	    } */
+		
+		/*String testpath = request.getServletPath(); 
+		String testpath2 = request.getRequestURI();
+		String testpath3 = request.getServletContext().getRealPath("/");
+		// 第一种：获取类加载的根路径   D:\git\daotie\daotie\target\classes
+        File f = new File(this.getClass().getResource("/").getPath());
+        System.out.println(f);
+        // 获取当前类的所在工程路径; 如果不加“/”  获取当前类的加载目录  D:\git\daotie\daotie\target\classes\my
+        File f2 = new File(this.getClass().getResource("").getPath());
+        System.out.println(f2);
+        // 第二种：获取项目路径    D:\git\daotie\daotie
+        File directory = new File("");// 参数为空
+        String courseFile = directory.getCanonicalPath();
+        System.out.println(courseFile);
+        // 第三种：  file:/D:/git/daotie/daotie/target/classes/
+        URL xmlpath = this.getClass().getClassLoader().getResource("");
+        System.out.println(xmlpath);
+        // 第四种： D:\git\daotie\daotie
+        System.out.println(System.getProperty("user.dir"));
+        
+         * 结果： C:\Documents and Settings\Administrator\workspace\projectName
+         * 获取当前工程路径
+         
+        // 第五种：  获取所有的类路径 包括jar包的路径
+        System.out.println(System.getProperty("java.class.path"));
+        System.err.println("-----testpath路径地址为：:"+testpath);
+		System.err.println("-----testpath2路径地址为：:"+testpath2);
+		System.err.println("-----testpath3路径地址为：:"+testpath3);
+        */
+        
+        
+        
+        
+		
 		//获取支持文件上传的Request对象 MultipartHttpServletRequest
 		MultipartHttpServletRequest mtpreq = (MultipartHttpServletRequest) request;
 		//通过 mtpreq 获取文件域中的文件
@@ -214,7 +250,8 @@ public class GategoriesController {
 		int i = fileName.lastIndexOf(".");
 		String uuidName = randomUUID.toString()+fileName.substring(i);
 		//获取服务器的路径地址（被上传文件的保存地址）
-		String realPath = request.getSession().getServletContext().getRealPath("/file");
+		//String realPath = request.getSession().getServletContext().getRealPath("/file");
+		String realPath = "C:/Users/Admin/git/Shop/WebContent/file";
 		//将路径转化为文件夹 并 判断文件夹是否存在
 		File dir = new File(realPath);
 		if(!dir.exists()){
@@ -222,6 +259,8 @@ public class GategoriesController {
 			}
 		//获取一个文件的保存路径
 		String path = realPath+"/"+uuidName;
+	
+		System.err.println("-----realpath改了后路径地址为：:"+realPath);
 
 
 		// 为文件这服务器中开辟一给新的空间,*没有数据
@@ -241,6 +280,8 @@ public class GategoriesController {
 		System.err.println("-----图片名称为：:"+fileName);
 		System.err.println("-----图片新名称为：:"+uuidName);
 		System.err.println("-----图片新路径为：:"+path);
+		
+		
 	}
 	
 

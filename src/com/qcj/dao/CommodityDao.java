@@ -15,4 +15,6 @@ public interface CommodityDao {
 	
 	//上下架
 	int upDownCommodity(int commodityId,String commodityIsShelves);
+	
+	int deleteCommodity(int commodityId);
 }

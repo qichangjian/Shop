@@ -35,4 +35,9 @@ public class CommodityServiceImpl implements CommodityService {
 		return commodityDao.upDownCommodity(commodityId, commodityIsShelves);
 	}
 
+	@Override
+	public int deleteCommodity(int commodityId) {
+		return commodityDao.deleteCommodity(commodityId);
+	}
+
 }
