@@ -40,6 +40,11 @@ public class GategoriesServiceImpl implements GategoriesService {
 	public List<Map<String, Object>> queryCommodity(Gategories gategories) {
 		return gategoriesDao.queryCommodity(gategories);
 	}
+
+	@Override
+	public int deleteGategories(int gategoriesId) {
+		return gategoriesDao.deleteGategories(gategoriesId);
+	}
 	
 	
 }

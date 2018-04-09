@@ -5,10 +5,14 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.qcj.dao.AdminDao;
+import com.qcj.dao.CommodityCommentDao;
 import com.qcj.dao.CommodityDao;
+import com.qcj.dao.ContactUsDao;
 import com.qcj.dao.GategoriesDao;
+import com.qcj.dao.OrdersDao;
 import com.qcj.dao.PermissionDao;
 import com.qcj.dao.RoleDao;
+import com.qcj.dao.SalesVolumeDao;
 import com.qcj.dao.UserDao;
 import com.qcj.service.PageService;
 @Service("pageService")
@@ -25,6 +29,14 @@ public class PageServiceImpl implements PageService{
 	GategoriesDao gategoriesDao;
 	@Resource
 	CommodityDao commodityDao;
+	@Resource
+	OrdersDao ordersDao;
+	@Resource
+	ContactUsDao contactUsDao;
+	@Resource
+	CommodityCommentDao commodityCommentDao;
+	@Resource
+	SalesVolumeDao salesVolumeDao;
 	
 	@Override
 	public int adminAllPage(int pageOn1) {
@@ -201,5 +213,101 @@ public class PageServiceImpl implements PageService{
 		return pageall;
 	}
 	
+	@Override
+	public int ordersPayAllPage(int pageOn1) {
+		int pageOn=1;//每页多少条数据
+		pageOn = pageOn1;
+		System.out.println("pageServiceimpl 中方法接受的的page页面pageon is:"+pageOn);
+		int rowall=ordersDao.allCountNum();
+		System.out.println("pageServiceimpl allCountNum is:"+rowall);
+		int pageall = 0;
+		if (rowall % pageOn == 0) {
+			pageall = rowall / pageOn ;
+		} else {
+			pageall = rowall / pageOn + 1;
+		}
+		System.out.println("返回的pageall is :"+pageall);
+		return pageall;
+	}
 	
+	@Override
+	public int ordersAllPage(int pageOn1) {
+		int pageOn=1;//每页多少条数据
+		pageOn = pageOn1;
+		System.out.println("pageServiceimpl 中方法接受的的page页面pageon is:"+pageOn);
+		int rowall=ordersDao.allCountNum2();
+		System.out.println("pageServiceimpl allCountNum is:"+rowall);
+		int pageall = 0;
+		if (rowall % pageOn == 0) {
+			pageall = rowall / pageOn ;
+		} else {
+			pageall = rowall / pageOn + 1;
+		}
+		System.out.println("返回的pageall is :"+pageall);
+		return pageall;
+	}
+	@Override
+	public int contactUsAllPage(int pageOn1) {
+		int pageOn=1;//每页多少条数据
+		pageOn = pageOn1;
+		System.out.println("pageServiceimpl 中方法接受的的page页面pageon is:"+pageOn);
+		int rowall=contactUsDao.allCountNum();
+		System.out.println("pageServiceimpl allCountNum is:"+rowall);
+		int pageall = 0;
+		if (rowall % pageOn == 0) {
+			pageall = rowall / pageOn ;
+		} else {
+			pageall = rowall / pageOn + 1;
+		}
+		System.out.println("返回的pageall is :"+pageall);
+		return pageall;
+	}
+	@Override
+	public int commodityCommentAllPage(int pageOn1) {
+		int pageOn=1;//每页多少条数据
+		pageOn = pageOn1;
+		System.out.println("pageServiceimpl 中方法接受的的page页面pageon is:"+pageOn);
+		int rowall=commodityCommentDao.allCountNum();
+		System.out.println("pageServiceimpl allCountNum is:"+rowall);
+		int pageall = 0;
+		if (rowall % pageOn == 0) {
+			pageall = rowall / pageOn ;
+		} else {
+			pageall = rowall / pageOn + 1;
+		}
+		System.out.println("返回的pageall is :"+pageall);
+		return pageall;
+	}
+	@Override
+	public int CommentAllPage(int pageOn1, int commodityId) {
+		int pageOn=1;//每页多少条数据
+		pageOn = pageOn1;
+		System.out.println("pageServiceimpl 中方法接受的的page页面pageon is:"+pageOn);
+		int rowall=commodityCommentDao.allCountNum2(commodityId);
+		System.out.println("pageServiceimpl allCountNum is:"+rowall);
+		int pageall = 0;
+		if (rowall % pageOn == 0) {
+			pageall = rowall / pageOn ;
+		} else {
+			pageall = rowall / pageOn + 1;
+		}
+		System.out.println("返回的pageall is :"+pageall);
+		return pageall;
+	}
+	@Override
+	public int salesVolumeAllPage(int pageOn1) {
+		int pageOn=1;//每页多少条数据
+		pageOn = pageOn1;
+		System.out.println("pageServiceimpl 中方法接受的的page页面pageon is:"+pageOn);
+		int rowall=salesVolumeDao.allCountNum();
+		System.out.println("pageServiceimpl allCountNum is:"+rowall);
+		int pageall = 0;
+		if (rowall % pageOn == 0) {
+			pageall = rowall / pageOn ;
+		} else {
+			pageall = rowall / pageOn + 1;
+		}
+		System.out.println("返回的pageall is :"+pageall);
+		return pageall;
+	}
 }

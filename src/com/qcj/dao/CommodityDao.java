@@ -17,4 +17,6 @@ public interface CommodityDao {
 	int upDownCommodity(int commodityId,String commodityIsShelves);
 	
 	int deleteCommodity(int commodityId);
+	
+	List<Commodity> selectCommodityBycId(int gategoriesId);
 }

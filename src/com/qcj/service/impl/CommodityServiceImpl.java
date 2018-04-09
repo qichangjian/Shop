@@ -40,4 +40,9 @@ public class CommodityServiceImpl implements CommodityService {
 		return commodityDao.deleteCommodity(commodityId);
 	}
 
+	@Override
+	public List<Commodity> selectCommodityBycId(int gategoriesId) {
+		return commodityDao.selectCommodityBycId(gategoriesId);
+	}
+
 }

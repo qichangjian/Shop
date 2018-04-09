@@ -20,22 +20,7 @@
 <link rel="stylesheet" href="shopWMS/css/admin.css">
 <script src="shopWMS/js/jquery.min.js"></script>
 <script src="shopWMS/js/app.js"></script>
-<!-- <script type="text/javascript">
-	$(function(){
-		$("#lookpermission").click(function(){
-			$("#div2").css('display','block');
-			$("#div1").css('display','none');
-		});
-		$("#exit").click(function(){
-			$("#div1").css('display','block');
-			$("#div2").css('display','none');
-		});
-	});
 
-</script> -->
-<!--<link rel="stylesheet" type="text/css" href="http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.min.css" />
-		<script type="text/javascript" src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-		<script type="text/javascript" src="http://cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>-->
 </head>
 
 <body>
@@ -44,53 +29,27 @@
 	<div class="am-topbar-brand">
 		<img src="shopWMS/i/logo.png">
 	</div>
-
 	<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 		<ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">
 			<li class="am-dropdown tognzhi" data-am-dropdown>
 				<button
 					class="am-btn am-btn-primary am-dropdown-toggle am-btn-xs am-radius am-icon-bell-o"
 					data-am-dropdown-toggle>
-					消息管理<span class="am-badge am-badge-danger am-round">6</span>
+					消息管理<span class="am-badge am-badge-danger am-round">.</span>
 				</button>
 				<ul class="am-dropdown-content">
 
 					<li class="am-dropdown-header">所有消息都在这里</li>
-					<li><a href="#">未激活会员 <span
-							class="am-badge am-badge-danger am-round">556</span></a></li>
-					<li><a href="#">未激活代理 <span
-							class="am-badge am-badge-danger am-round">69</span></a> </a></li>
-					<li><a href="#">未处理汇款</a></li>
-					<li><a href="#">未发放提现</a></li>
-					<li><a href="#">未发货订单</a></li>
-					<li><a href="#">低库存产品</a></li>
-					<li><a href="#">信息反馈</a></li>
+					<li><a href="findcontactUsList">买家留言</a></li>
+					<li><a href="findOrdersList">买家订单 <span
+							class="am-badge am-badge-danger am-round">.</span></a> </a></li>
 				</ul>
 			</li>
 
-			<li class="kuanjie"><a href="#">会员管理</a> <a href="#">奖金管理</a> <a
-				href="#">订单管理</a> <a href="#">产品管理</a> <a href="#">个人中心</a> <a
-				href="#">系统设置</a></li>
+			<li class="kuanjie"><a href="BCommoditySales">销量展示</a> <a
+				href="findOrdersList">查看已购买订单</a> <a href="findOrdersLists">查看已完成订单</a>
+				<a href="findUserList">查看用户中心</a></li>
 
-			<li class="soso">
-				<p>
-					<select
-						data-am-selected="{btnWidth: 70, btnSize: 'sm', btnStyle: 'default'}">
-						<option value="b">全部</option>
-						<option value="o">产品</option>
-						<option value="o">会员</option>
-					</select>
-				</p>
-				<p class="ycfg">
-					<input type="text" class="am-form-field am-input-sm"
-						placeholder="圆角表单域" />
-				</p>
-				<p>
-					<button class="am-btn am-btn-xs am-btn-default am-xiao">
-						<i class="am-icon-search"></i>
-					</button>
-				</p>
-			</li>
 			<li class="am-hide-sm-only" style="float: right;"><a
 				href="javascript:;" id="admin-fullscreen"><span
 					class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a>
@@ -105,7 +64,7 @@
 				style="color: #aeb2b7; margin: 10px 0 0 0;">
 				欢迎系统管理员：${sessionScope.admin.aname}</div>
 			<div class="sideMenu">
-				<h3 class="am-icon-flag">
+				<h3 class="am-icon-hand-o-left">
 					<em></em> <a href="#">后台权限管理</a>
 				</h3>
 				<ul>
@@ -113,50 +72,48 @@
 						<li><a href="${plists.purl }">${plists.pname}</a></li>
 					</c:forEach>
 				</ul>
-				<h3 class="am-icon-cart-plus">
-					<em></em> <a href="#"> 订单管理</a>
-				</h3>
-				<ul>
-					<li>订单列表</li>
-					<li>合并订单</li>
-					<li>订单打印</li>
-					<li>添加订单</li>
-					<li>发货单列表</li>
-					<li>换货单列表</li>
-				</ul>
 				<h3 class="am-icon-users">
-					<em></em> <a href="#">会员管理</a>
+					<em></em> <a href="#"> 用户管理</a>
 				</h3>
 				<ul>
-					<li>会员列表</li>
-					<li>未激活会员</li>
-					<li>团队系谱图</li>
-					<li>会员推荐图</li>
-					<li>推荐列表</li>
+					<li><a href="findUserList">查看用户信息</a></li>
+					<li><a href="updateUser">修改用户信息</a></li>
 				</ul>
-				<h3 class="am-icon-volume-up">
-					<em></em> <a href="#">信息通知</a>
+				<h3 class="am-icon-cart-plus">
+					<em></em> <a href="#">商品管理</a>
 				</h3>
 				<ul>
-					<li>站内消息 /留言</li>
-					<li>短信</li>
-					<li>邮件</li>
-					<li>微信</li>
-					<li>客服</li>
+					<li><a href="findGategoriesList">查看商品分类</a></li>
+					<li><a href="updateGategories">操作商品分类</a></li>
 				</ul>
-				<h3 class="am-icon-gears">
-					<em></em> <a href="#">系统设置</a>
+				<h3 class="am-icon-pencil-square-o">
+					<em></em> <a href="#">订单管理</a>
 				</h3>
 				<ul>
-					<li>数据备份</li>
-					<li>邮件/短信管理</li>
-					<li>上传/下载</li>
-					<li>权限</li>
-					<li>网站设置</li>
-					<li>第三方支付</li>
-					<li>提现 /转账 出入账汇率</li>
-					<li>平台设置</li>
-					<li>声音文件</li>
+					<li><a href="findOrdersList">查看已付款订单</a></li>
+					<li><a href="findOrdersLists">查看已完成订单</a></li>
+				</ul>
+				<h3 class="am-icon-comment-o">
+					<em></em> <a href="#">买家留言</a>
+				</h3>
+				<ul>
+					<li><a href="findcontactUsList">查看留言</a></li>
+				</ul>
+				<h3 class="am-icon-comments">
+					<em></em> <a href="#">商品评论管理</a>
+				</h3>
+				<ul>
+					<li><a href="findcommodityCommentList">查看商品评论</a></li>
+				</ul>
+				<!-- <h3 class="am-icon-volume-up"><em></em> <a href="#">商品销量管理</a></h3>
+					<ul>
+						<li><a href="findsalesVolumeList">查看商品销量</a></li> -->
+				</ul>
+				<h3 class="am-icon-line-chart">
+					<em></em> <a href="#">图表分析</a>
+				</h3>
+				<ul>
+					<li><a href="BCommoditySales">查看商品销量图</a></li>
 				</ul>
 			</div>
 			<!-- sideMenu End -->
@@ -179,28 +136,13 @@
 			<div class="daohang">
 				<ul>
 					<li><button type="button"
-							class="am-btn am-btn-default am-radius am-btn-xs">首页</li>
-					<li><button type="button"
-							class="am-btn am-btn-default am-radius am-btn-xs">
-							帮助中心<a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close="">×</a>
-						</button></li>
-					<li><button type="button"
-							class="am-btn am-btn-default am-radius am-btn-xs">
-							奖金管理<a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close="">×</a>
-						</button></li>
-					<li><button type="button"
-							class="am-btn am-btn-default am-radius am-btn-xs">
-							产品管理<a href="javascript: void(0)" class="am-close am-close-spin"
-								data-am-modal-close="">×</a>
-						</button></li>
+							class="am-btn am-btn-default am-radius am-btn-xs">管理员操作列表</li>
 				</ul>
 			</div>
 
 			<div class="admin-biaogelist">
 				<div class="listbiaoti am-cf">
-					<ul class="am-icon-flag on">栏目名称
+					<ul class="am-icon-flag on">栏目：权限管理
 					</ul>
 					<dl class="am-icon-home" style="float: right;">
 						当前位置： 首页 >
@@ -221,22 +163,22 @@
 										<div class="am-form-group am-cf">
 											<div class="zuo">管理员姓名：</div>
 											<div class="you">
-												<input type="text" class="am-input-sm" id="aname" name="aname"
-													placeholder="请输入姓名">
+												<input type="text" class="am-input-sm" id="aname"
+													name="aname" placeholder="请输入姓名">
 											</div>
 										</div>
 										<div class="am-form-group am-cf">
 											<div class="zuo">管理员密码：</div>
 											<div class="you">
-												<input type="password" class="am-input-sm" id="apassword" name="apassword"
-													placeholder="请输入密码">
+												<input type="password" class="am-input-sm" id="apassword"
+													name="apassword" placeholder="请输入密码">
 											</div>
 										</div>
 										<div class="am-form-group am-cf">
 											<div class="zuo">管理员描述：</div>
 											<div class="you">
-												<input type="text" class="am-input-sm" id="amessage" name="amessage"
-													placeholder="请输入对此人描述">
+												<input type="text" class="am-input-sm" id="amessage"
+													name="amessage" placeholder="请输入对此人描述">
 											</div>
 										</div>
 										<div class="am-form-group am-cf">
@@ -260,8 +202,8 @@
 										<div class="am-form-group am-cf">
 											<div class="zuo">按照姓名搜索</div>
 											<div class="you">
-												<input type="text" class="am-input-sm" id="adminNameLike" name="adminNameLike"
-													placeholder="请输入姓名">
+												<input type="text" class="am-input-sm" id="adminNameLike"
+													name="adminNameLike" placeholder="请输入姓名">
 											</div>
 										</div>
 										<div class="am-form-group am-cf">
@@ -305,29 +247,27 @@
 										<td>
 											<div class="am-btn-toolbar">
 												<div class="am-btn-group am-btn-group-xs">
-													<a class="am-btn am-btn-default am-btn-xs am-text-success am-round"
+													<a
+														class="am-btn am-btn-default am-btn-xs am-text-success am-round"
 														title="管理员角色"
 														href="adminAndRole?adminId=${admin.aid}&adminName=${admin.aname}">
 														<span class="am-icon-save"></span>
-													</a> 
-													<a class="am-btn am-btn-default am-btn-xs am-text-warning am-round"
-													title="查看管理员权限"
-													href="findAdminPermission?adminId=${admin.aid}&adminName=${admin.aname}">
+													</a> <a
+														class="am-btn am-btn-default am-btn-xs am-text-warning am-round"
+														title="查看管理员权限"
+														href="findAdminPermission?adminId=${admin.aid}&adminName=${admin.aname}">
 														<span class="am-icon-search"></span>
-													</a>
-													<a class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
-													title="修改管理员信息" href="adminToUpdate?adminId=${admin.aid}&adminName=${admin.aname}&adminPassword=${admin.apassword}&adminMessage=${admin.amessage}">
+													</a> <a
+														class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"
+														title="修改管理员信息"
+														href="adminToUpdate?adminId=${admin.aid}&adminName=${admin.aname}&adminPassword=${admin.apassword}&adminMessage=${admin.amessage}">
 														<span class="am-icon-pencil-square-o"></span>
-													</a>
-													<a class="am-btn am-btn-default am-btn-xs am-text-danger am-round"
-													title="删除管理员" href="deleteAdmin?adminId=${admin.aid}">
+													</a> <a
+														class="am-btn am-btn-default am-btn-xs am-text-danger am-round"
+														title="删除管理员" href="deleteAdmin?adminId=${admin.aid}">
 														<span class="am-icon-trash-o"></span>
 													</a>
-													
 
-													<%--  <button class="am-btn am-btn-default am-btn-xs am-text-success am-round"><span class="am-icon-search" title="查看订单详情"></span> </button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改订单"><span class="am-icon-pencil-square-o"></span></button>
-                      <a class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除会员" href="deleteusers?userID=${node.id}"><span class="am-icon-trash-o" ></span></a> --%>
 												</div>
 											</div>
 
@@ -338,92 +278,28 @@
 
 							</tbody>
 						</table>
-						<!-- 
-                 <div class="am-btn-group am-btn-group-xs">
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 删除</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 上架</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 下架</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 移动</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 移动</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
-            </div>
-           -->
 						<ul class="am-pagination am-fr">
-
-							<%-- <li class="am-disabled">当前是第 ${pageNumberX } 页</li>
-							<li><a href="updateAdmin?pageNumberX=1">首页</a></li>
-							<li><a href="updateAdmin?pageNumberX=${pageNumberX-1 }">上一页</a></li>
-							<li><a href="updateAdmin?pageNumberX=${pageNumberX+1 }">下一页</a></li>
-							<li><a href="updateAdmin?pageNumberX=${pageAll}">尾页</a></li>
-							<li>总页数： ${pageAll} 页</li> --%>
 							<li class="am-disabled">当前是第 ${pageNumberX } 页</li>
-							<li><a href="updateAdminLike?adminNameLike=${adminNameLike}&pageNumberX=1">首页</a></li>
-							<li><a href="updateAdminLike?adminNameLike=${adminNameLike}&pageNumberX=${pageNumberX-1 }">上一页</a></li>
-							<li><a href="updateAdminLike?adminNameLike=${adminNameLike}&pageNumberX=${pageNumberX+1 }">下一页</a></li>
-							<li><a href="updateAdminLike?adminNameLike=${adminNameLike}&pageNumberX=${pageAll}">尾页</a></li>
+							<li><a
+								href="updateAdminLike?adminNameLike=${adminNameLike}&pageNumberX=1">首页</a></li>
+							<li><a
+								href="updateAdminLike?adminNameLike=${adminNameLike}&pageNumberX=${pageNumberX-1 }">上一页</a></li>
+							<li><a
+								href="updateAdminLike?adminNameLike=${adminNameLike}&pageNumberX=${pageNumberX+1 }">下一页</a></li>
+							<li><a
+								href="updateAdminLike?adminNameLike=${adminNameLike}&pageNumberX=${pageAll}">尾页</a></li>
 							<li>总页数： ${pageAll} 页</li>
 						</ul>
 
 						<hr />
 						<p>注：.....</p>
 					</form>
-					<%-- <form  class="am-form am-g" action="findAdminList">
-						 <hr data-am-widget="divider" style="" class="am-divider am-divider-dotted" />
-						<div>
 
-							<center>
-								<div class="am-g" style="width: 560px; height: 40px;">
-									<div class="am-u-sm-5 am-kai">
-										<h3>跳转<span class=" am-icon-search">输入要查找的页码：</span></h3>
-									</div>
-									<div class="am-u-sm-3">
-										<input type="text" class="am-form-field"
-											style="height: 30px; padding: 0; margin: 0;" id="pageNumberX" name="pageNumberX">
-									</div>
-									<div class="am-u-sm-1">-</div>
-									<div class="am-u-sm-3">
-										<input class="am-btn am-btn-default" type="submit"
-											style="height: 30px; float: right; padding: 5px; margin: 0;"
-											value="GO">
-									</div>
-								</div>
-							</center>
-						</div>
-					</form>
-				 --%>
-
-					<%-- 	    <hr data-am-widget="divider" style="margin-top:50px;" class="am-divider am-divider-default" />
-				<div>
-					<table width="100%"
-							class="am-table am-table-bordered am-table-radius am-table-striped">
-							<h2><center style="color:green; margin-top:50px;">${adminName }具有权限：</center></h2>
-							<thead>
-								<tr class="am-success">
-									<!--  <th class="table-check"><input type="checkbox" /></th> -->
-									<th class="table-author am-hide-sm-only">权限名称</th>
-									<th class="table-author am-hide-sm-only">权限介绍</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${plist}" var="plists">
-									<tr>
-										<!-- <td><input type="checkbox" /></td> -->
-										<td><c:out value="${plists.pname }"></c:out></td>
-										<td><c:out value="${plists.pmessage}"></c:out></td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-				</div> --%>
 
 					<div class="foods" style="margin-top: 200px;">
 						<ul>
-							版权所有@2015. 模板收集自
-							<a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
-							- More Templates
-							<a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+							Copyright &copy; 2018.QiChangjian All rights reserved.毕业论文
+							<a href="#">服装购物网站（后台）</a>
 						</ul>
 						<dl>
 							<a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a>

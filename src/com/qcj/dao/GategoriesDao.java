@@ -2,8 +2,6 @@ package com.qcj.dao;
 
 import java.util.List;
 import java.util.Map;
-
-import com.qcj.entity.Admin;
 import com.qcj.entity.Gategories;
 
 public interface GategoriesDao {
@@ -23,4 +21,6 @@ public interface GategoriesDao {
 	
 	//根据商品类型查询商品
 	List<Map<String,Object>> queryCommodity(Gategories gategories); 
+	
+	int deleteGategories(int gategoriesId);
 }

@@ -11,12 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.qcj.entity.Admin;
 import com.qcj.entity.Commodity;
-import com.qcj.service.AdminService;
+import com.qcj.entity.CommodityComment;
+import com.qcj.entity.Commoditypicture;
+import com.qcj.entity.SalesVolume;
+import com.qcj.service.CommodityCommentService;
 import com.qcj.service.CommodityService;
 import com.qcj.service.CommoditypictureService;
 import com.qcj.service.PageService;
+import com.qcj.service.SalesVolumeService;
 
 @Controller
 public class CommodityController {
@@ -29,7 +32,15 @@ public class CommodityController {
 	CommoditypictureService commoditypictureService;
 	
 	@Resource
+	CommodityCommentService commodityCommentService;
+	
+	@Resource
+	SalesVolumeService salesVolumeService;
+	
+	@Resource
 	PageService pageService;
+	
+	
 	
 	int pageOn = 1;//每页多少条数据
 	
@@ -100,7 +111,7 @@ public class CommodityController {
 		commodity.setCommoditySize(commoditySize);
 		log.info("参数 commodity is :" + commodity);
 		if(commodityService.addCommodity(commodity) != 0) {		
-			mv.setViewName("shopWMS/view/gategoriesAndCommodity");
+			mv.setViewName("forward:updateGategories");
 			return mv;
 		}else {
 			mv.setViewName("shopWMS/view/errorPage");
@@ -136,15 +147,15 @@ public class CommodityController {
 		ModelAndView mv = new ModelAndView();
 		String commodityId1 = request.getParameter("commodityId");
 		int commodityId = Integer.parseInt(commodityId1);
-		String gategoriesId1 = request.getParameter("gategoriesId");
-		int gategoriesId = Integer.parseInt(gategoriesId1);
+		//String gategoriesId1 = request.getParameter("gategoriesId");
+		//int gategoriesId = Integer.parseInt(gategoriesId1);
 		String commodityName = request.getParameter("commodityName");
 		String commodityPrice = request.getParameter("commodityPrice");
 		String commodityIsMan = request.getParameter("commodityIsMan");
 		String commodityIsShelves = request.getParameter("commodityIsShelves");
 		String commoditySize = request.getParameter("commoditySize");
 		if(commodityService.commodityUpdate(commodityId,commodityName,commodityPrice,commodityIsMan,commodityIsShelves,commoditySize) != 0) {
-			mv.setViewName("shopWMS/view/updateGategories");
+			mv.setViewName("forward:updateGategories");
 			return mv;
 		}else {
 			mv.setViewName("shopWMS/view/errorPage");
@@ -159,7 +170,7 @@ public class CommodityController {
 		int commodityId = Integer.parseInt(commodityId1);
 		String commodityIsShelves = request.getParameter("commodityIsShelves");
 		if(commodityService.upDownCommodity(commodityId,commodityIsShelves) != 0) {
-			mv.setViewName("shopWMS/view/updateGategories");
+			mv.setViewName("forward:updateGategories");
 			return mv;
 		}else {
 			mv.setViewName("shopWMS/view/errorPage");
@@ -167,16 +178,19 @@ public class CommodityController {
 		}
 	}
 	
-	
 	@RequestMapping("/deleteCommodity")
 	public ModelAndView deleteCommodity(HttpServletRequest request,HttpServletResponse response) {
+		System.out.println("in deleteCommodity------------------");
 		ModelAndView mv = new ModelAndView();
 		String commodityId1 = request.getParameter("commodityId");
 		int commodityId = Integer.parseInt(commodityId1);
-		if(commoditypictureService.deleteCommoditypictures(commodityId) != 0){
-			System.out.println("商品所有图片删除成功");
+		//查询看看是否有图片有就执行下边 没有直接删除
+		List<Commoditypicture> cplist = commoditypictureService.selectCommoditypicture(commodityId);
+		List<CommodityComment> cclist = commodityCommentService.selectCommodityCommentByCid(commodityId);
+		List<SalesVolume> svlist = salesVolumeService.selectSalesVolumeBycId(commodityId);
+		if(null == cplist && null == cclist && null == svlist){
 			if(commodityService.deleteCommodity(commodityId) != 0) {
-				mv.setViewName("shopWMS/view/commoditypictureUpdate");
+				mv.setViewName("forward:updateGategories");
 				return mv;
 			}else {
 				String deleteCommoditypictureErr = "操作失败";
@@ -184,14 +198,138 @@ public class CommodityController {
 				mv.setViewName("shopWMS/view/errorPage");
 				return mv;
 			}
-		}else {
+		}else if(null != cplist && null == cclist && null == svlist ){
+			if(commoditypictureService.deleteCommoditypictures(commodityId) != 0){
+				System.out.println("商品所有图片删除成功");
+				if(commodityService.deleteCommodity(commodityId) != 0) {
+					mv.setViewName("forward:updateGategories");
+					return mv;
+				}else {
+					String deleteCommoditypictureErr = "操作失败";
+					mv.addObject("deleteCommoditypictureErr",deleteCommoditypictureErr);
+					mv.setViewName("shopWMS/view/errorPage");
+					return mv;
+				}
+			}else {
+				String deleteCommodityErr = "操作失败";
+				mv.addObject("deleteCommodityErr",deleteCommodityErr);
+				mv.setViewName("shopWMS/view/errorPage");
+				return mv;
+			}
+		}else if(null == cplist && null != cclist && null == svlist ){
+			if(commodityCommentService.deleteCommodityCommentbycId(commodityId) != 0){
+				System.out.println("商品评论删除成功");		
+				if(commodityService.deleteCommodity(commodityId) != 0) {
+					mv.setViewName("forward:updateGategories");
+					return mv;
+				}else {
+					String deleteCommoditypictureErr = "操作失败";
+					mv.addObject("deleteCommoditypictureErr",deleteCommoditypictureErr);
+					mv.setViewName("shopWMS/view/errorPage");
+					return mv;
+				}	
+			}else {
+				String deleteCommodityErr = "操作失败";
+				mv.addObject("deleteCommodityErr",deleteCommodityErr);
+				mv.setViewName("shopWMS/view/errorPage");
+				return mv;
+			}
+		}else if(null == cplist && null == cclist && null != svlist ){
+			if(salesVolumeService.deletesalesVolumebycId(commodityId) != 0){
+				System.out.println("商品销量表删除成功");	
+				if(commodityService.deleteCommodity(commodityId) != 0) {
+					mv.setViewName("forward:updateGategories");
+					return mv;
+				}else {
+					String deleteCommoditypictureErr = "操作失败";
+					mv.addObject("deleteCommoditypictureErr",deleteCommoditypictureErr);
+					mv.setViewName("shopWMS/view/errorPage");
+					return mv;
+				}	
+			}else {
+				String deleteCommodityErr = "操作失败";
+				mv.addObject("deleteCommodityErr",deleteCommodityErr);
+				mv.setViewName("shopWMS/view/errorPage");
+				return mv;
+			}
+		}else if(null != cplist && null != cclist && null != svlist ){
+			if(commoditypictureService.deleteCommoditypictures(commodityId) != 0 && commodityCommentService.deleteCommodityCommentbycId(commodityId) != 0 && salesVolumeService.deletesalesVolumebycId(commodityId) != 0){
+				System.out.println("三个关联表删除成功");	
+				if(commodityService.deleteCommodity(commodityId) != 0) {
+					mv.setViewName("forward:updateGategories");
+					return mv;
+				}else {
+					String deleteCommoditypictureErr = "操作失败";
+					mv.addObject("deleteCommoditypictureErr",deleteCommoditypictureErr);
+					mv.setViewName("shopWMS/view/errorPage");
+					return mv;
+				}	
+			}else {
+				String deleteCommodityErr = "操作失败";
+				mv.addObject("deleteCommodityErr",deleteCommodityErr);
+				mv.setViewName("shopWMS/view/errorPage");
+				return mv;
+			}
+		}else if(null == cplist && null != cclist && null != svlist ){
+			if(commodityCommentService.deleteCommodityCommentbycId(commodityId) != 0 && salesVolumeService.deletesalesVolumebycId(commodityId) != 0){
+				System.out.println("两个关联表删除成功");	
+				if(commodityService.deleteCommodity(commodityId) != 0) {
+					mv.setViewName("forward:updateGategories");
+					return mv;
+				}else {
+					String deleteCommoditypictureErr = "操作失败";
+					mv.addObject("deleteCommoditypictureErr",deleteCommoditypictureErr);
+					mv.setViewName("shopWMS/view/errorPage");
+					return mv;
+				}	
+			}else {
+				String deleteCommodityErr = "操作失败";
+				mv.addObject("deleteCommodityErr",deleteCommodityErr);
+				mv.setViewName("shopWMS/view/errorPage");
+				return mv;
+			}
+		}else if(null != cplist && null == cclist && null != svlist ){
+			if(commoditypictureService.deleteCommoditypictures(commodityId) != 0 && salesVolumeService.deletesalesVolumebycId(commodityId) != 0){
+				System.out.println("两个关联表删除成功");	
+				if(commodityService.deleteCommodity(commodityId) != 0) {
+					mv.setViewName("forward:updateGategories");
+					return mv;
+				}else {
+					String deleteCommoditypictureErr = "操作失败";
+					mv.addObject("deleteCommoditypictureErr",deleteCommoditypictureErr);
+					mv.setViewName("shopWMS/view/errorPage");
+					return mv;
+				}	
+			}else {
+				String deleteCommodityErr = "操作失败";
+				mv.addObject("deleteCommodityErr",deleteCommodityErr);
+				mv.setViewName("shopWMS/view/errorPage");
+				return mv;
+			}
+		}else if(null != cplist && null != cclist && null == svlist ){
+			if(commoditypictureService.deleteCommoditypictures(commodityId) != 0 && commodityCommentService.deleteCommodityCommentbycId(commodityId) != 0){
+				System.out.println("两个关联表删除成功");	
+				if(commodityService.deleteCommodity(commodityId) != 0) {
+					mv.setViewName("forward:updateGategories");
+					return mv;
+				}else {
+					String deleteCommoditypictureErr = "操作失败";
+					mv.addObject("deleteCommoditypictureErr",deleteCommoditypictureErr);
+					mv.setViewName("shopWMS/view/errorPage");
+					return mv;
+				}	
+			}else {
+				String deleteCommodityErr = "操作失败";
+				mv.addObject("deleteCommodityErr",deleteCommodityErr);
+				mv.setViewName("shopWMS/view/errorPage");
+				return mv;
+			}
+		}else{
 			String deleteCommodityErr = "操作失败";
 			mv.addObject("deleteCommodityErr",deleteCommodityErr);
 			mv.setViewName("shopWMS/view/errorPage");
 			return mv;
 		}
-		
-		
 	}
 
 }
