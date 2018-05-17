@@ -31,9 +31,7 @@ public class AdminDaoImpl implements AdminDao {
 		List<Admin> list = jdbcTemplate.query(sql, new Object[] { admin.getAname(), admin.getApassword() },
 				((RowMapper<Admin>) (rs, index) -> new Admin(rs.getInt(1), rs.getString(2), rs.getString(3),
 						rs.getString(4))));
-		return null == list || list.size() == 0 ? null : list.get(0);// 如果返回结果是null
-																		// 或者
-																		// 没有返回大小是0，返回0。反之返回list数组中的第一个admin
+		return null == list || list.size() == 0 ? null : list.get(0);
 	}
 
 	/**
